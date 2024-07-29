@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com/";
+const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com";
 
 function Chat() {
   const socketRef = useRef(null);

@@ -10,7 +10,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://socket-io-chat-app-blond.vercel.app/",
+    "https://socket-io-chat-app-blond.vercel.app",
   ], // Replace with your frontend URL
   methods: ["GET", "POST"], // Adjust methods as needed
   allowedHeaders: ["Content-Type", "Authorization"], // Adjust headers as needed
@@ -24,7 +24,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://socket-io-chat-app-blond.vercel.app/",
+      "https://socket-io-chat-app-blond.vercel.app",
     ],
     methods: ["GET", "POST"], // Adjust methods as needed
   },
