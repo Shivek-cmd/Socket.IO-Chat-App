@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-// const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com";
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com";
+
 const socket = io(ENDPOINT);
 function Chat() {
   const [inputMessage, setInputMessage] = useState("");
