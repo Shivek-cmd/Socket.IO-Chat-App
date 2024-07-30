@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Join() {
+  const navigate = useNavigate();
   const [user, setUser] = useState("");
 
   const handleInputChange = (e) => {
@@ -11,6 +12,14 @@ function Join() {
   const handleStartClick = () => {
     if (user.trim() !== "") {
       localStorage.setItem("user", user);
+      navigate("/chat");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent the default behavior of the Enter key (like form submission)
+      handleStartClick();
     }
   };
 
@@ -26,20 +35,19 @@ function Join() {
           className="w-full p-3 mb-4 border border-gray-600 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
           value={user}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
         />
-        <Link
-          to="/chat"
-          className={`block w-full text-center py-2 rounded-lg ${
+        <button
+          disabled={user.trim() === ""}
+          onClick={handleStartClick}
+          className={`w-full py-2 rounded-lg ${
             user.trim() !== ""
               ? "bg-cyan-600 text-white hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400"
               : "bg-gray-600 text-gray-400 cursor-not-allowed"
           }`}
-          onClick={handleStartClick}
         >
-          <button disabled={user.trim() === ""} className="w-full h-full">
-            Start
-          </button>
-        </Link>
+          Start
+        </button>
       </div>
     </div>
   );

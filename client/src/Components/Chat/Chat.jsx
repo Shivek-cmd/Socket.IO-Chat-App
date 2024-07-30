@@ -2,17 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com";
-
+// const ENDPOINT = "https://socket-io-chat-app-evjp.onrender.com";
+const ENDPOINT = "http://localhost:3000/";
+const socket = io(ENDPOINT);
 function Chat() {
-  const socketRef = useRef(null);
   const [inputMessage, setInputMessage] = useState("");
   const [user, setUser] = useState(localStorage.getItem("user") || "");
   const [messages, setMessages] = useState([]);
 
   const sendMessages = () => {
     if (inputMessage.trim()) {
-      socketRef.current.emit("message", { user, text: inputMessage });
+      socket.emit("message", { user, text: inputMessage });
       setInputMessage("");
     }
   };
@@ -25,18 +25,16 @@ function Chat() {
   };
 
   useEffect(() => {
-    socketRef.current = io(ENDPOINT);
-
-    socketRef.current.on("connect", () => {
-      console.log(socketRef.current.id);
+    socket.on("connect", () => {
+      console.log(socket.id);
     });
 
-    socketRef.current.on("message", (message) => {
+    socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => {
-      socketRef.current.disconnect(); // Cleanup on component unmount
+      socket.disconnect(); // Cleanup on component unmount
     };
   }, []);
 
